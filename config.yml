@@ -3,6 +3,6 @@ application:
   LOW_MODE_: "NO"
 
 weather_settings:
-  API_WEATHER: "9e9338e2406eeea5daf47985f64a6e25"
-  CITY: "Ulyanovsk"
+  API_WEATHER: ""
+  CITY: ""
   
