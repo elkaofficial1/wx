@@ -5,7 +5,7 @@ APP_NAME = wx
 SOURCE = main.py
 INSTALL_DIR = /usr/local/bin
 PYTHON = python3
-PIP = pip3
+PIP = pip
 
 # Файл с зависимостями
 REQUIREMENTS = requirements.txt

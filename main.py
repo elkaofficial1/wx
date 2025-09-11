@@ -60,28 +60,40 @@ class SimpleTileApp(App):
         description = lang.Lang_create(Lang, "desc")
         weather_ = lang.Lang_create(Lang, "weather")
         weatherCH = lang.Lang_create(Lang, "weatherCH")
-        weather_temp = weatherq["temp"]
+        langO = lang.Lang_create(Lang, "out")
         
+        self.content_widget = Static("", classes="header")
+        self.footer_widget = Static(ascll_logo, classes="header")
         with Horizontal():
             with Vertical(id="sidebar"):
-                yield Static("КОМАНДЫ", classes="header")
-                
+                yield Static(langO, classes="header")
                 table = DataTable()
+                table.cursor_type = "row"
+                table.show_cursor = True
                 table.add_columns(command, description)
                 table.add_rows([
-                    [weather_, weatherCH]
+                    [weather_, weatherCH],
+                    ["f", "f"]
                 ])
                 yield table
-            
             with Vertical():
                 with Vertical(id="content"):
-                    yield Static(weather_temp, classes="header")
-                
+                    yield self.content_widget
                 with Vertical(id="footer"):
-                    yield Static(ascll_logo, classes="header")
+                    yield self.footer_widget
+
+    def update_content(self, weather_temp):
+        content = self.query_one("#content")
+        content.remove_children()
+        from weather_ascll import OutAscll
+        content.mount(Static(weather_temp, classes="header"))
+        content.mount(OutAscll())
 
     def on_data_table_row_selected(self, event: DataTable.RowSelected) -> None:
         row = event.data_table.get_row(event.row_key)
+        if row and row[0] == lang.Lang_create(Lang, "weather"):
+            weather_temp = weatherq["temp"]
+            self.update_content(weather_temp)
         self.notify(f"Выбрана команда: {row[0]} - {row[1]}")
 
 if __name__ == "__main__":
