@@ -61,6 +61,9 @@ class SimpleTileApp(App):
         weather_ = lang.Lang_create(Lang, "weather")
         weatherCH = lang.Lang_create(Lang, "weatherCH")
         langO = lang.Lang_create(Lang, "out")
+        langfullscreen = lang.Lang_create(Lang, "fullscreen")
+        langfullscreendesc = lang.Lang_create(Lang, "fullscreendesc")
+        weather_temp = weatherq["temp"]
         
         self.content_widget = Static("", classes="header")
         self.footer_widget = Static(ascll_logo, classes="header")
@@ -73,7 +76,7 @@ class SimpleTileApp(App):
                 table.add_columns(command, description)
                 table.add_rows([
                     [weather_, weatherCH],
-                    ["f", "f"]
+                    [langfullscreen, langfullscreendesc]
                 ])
                 yield table
             with Vertical():
